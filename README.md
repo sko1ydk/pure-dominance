@@ -25,17 +25,3 @@ No install needed! Just:
 - **Anti-fail systems**: Red Zone locks you out of quitting
 - **Progress scaling**: Goals double each time (48h → 96h → 192h)
 
-## 📜 Code Overview
-```html
-<!-- Pure HTML5 - No bloat -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>QUIT PORN. BECOME A KING.</title>
-  <!-- Hardcore CSS inside the file -->
-  <!-- No external dependencies -->
-</head>
-<body>
-  <!-- All JS written for maximum impact -->
-</body>
-</html>
