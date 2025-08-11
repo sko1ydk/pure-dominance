@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIT PORN. BECOME A KING.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css  ">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid #d4af37;
+        }
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            color: #d4af37;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            color: #a0a0a0;
+            letter-spacing: 1px;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .timer-container {
+            background: rgba(20, 20, 20, 0.85);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border: 1px solid #333;
+        }
+        .streak-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .streak-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+        .streak-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        .streak-box h3 {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-bottom: 0.5rem;
+        }
+        .streak-box .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4af37;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .time-unit {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-width: 120px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+        .time-unit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+        .time-unit .value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #d4af37;
+            line-height: 1;
+        }
+        .time-unit .label {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+        .motivation {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-left: 4px solid #d4af37;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .motivation:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+        }
+        .motivation p {
+            font-size: 1.4rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+        .motivation .author {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #d4af37;
+            font-weight: 700;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        button {
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 1rem 2rem;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+        button:hover::before {
+            left: 100%;
+        }
+        button:hover {
+            background: #f0d78c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        .panic-btn {
+            background: #ff0000;
+            color: #fff;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+        .panic-btn:hover {
+            background: #ff3333;
+        }
+        .breathe-btn {
+            background: #1e88e5;
+            color: #fff;
+        }
+        .breathe-btn:hover {
+            background: #42a5f5;
+        }
+        .reset-btn {
+            background: #8b0000;
+            color: #fff;
+        }
+        .reset-btn:hover {
+            background: #a00000;
+        }
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #f0d78c);
+            width: 0%;
+            transition: width 1s ease;
+        }
+        .completed {
+            background: rgba(0, 128, 0, 0.2);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        .completed h3 {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        /* Red Zone Styles */
+        .red-zone {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        .red-zone.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .red-zone-content {
+            text-align: center;
+            max-width: 800px;
+        }
+        .red-zone h2 {
+            font-size: 4rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: blink 1s infinite;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .red-zone-timer {
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        .red-zone-message {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .red-zone-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .red-zone button {
+            padding: 1.5rem 2.5rem;
+            font-size: 1.3rem;
+        }
+        .exit-red-zone {
+            background: #ffffff;
+            color: #000;
+        }
+        .exit-red-zone:hover {
+            background: #f0f0f0;
+        }
+        /* Breathing Exercise Styles */
+        .breathing-exercise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 136, 229, 0.95);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        .breathing-exercise.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .breathing-content {
+            text-align: center;
+            max-width: 800px;
+        }
+        .breathing-exercise h2 {
+            font-size: 4rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #ffffff;
+            transition: all 4s ease-in-out;
+        }
+        .breathing-circle.inhale {
+            transform: scale(1.5);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .breathing-circle.hold {
+            transform: scale(1.5);
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .breathing-circle.exhale {
+            transform: scale(1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .breathing-instructions {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+        .breathing-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .breathing-controls button {
+            padding: 1.5rem 2.5rem;
+            font-size: 1.3rem;
+        }
+        .exit-breathing {
+            background: #ffffff;
+            color: #1e88e5;
+        }
+        .exit-breathing:hover {
+            background: #f0f0f0;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+            z-index: 100;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+        .notification.show {
+            transform: translateX(0);
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .time-unit .value {
+                font-size: 2.5rem;
+            }
+            
+            .time-unit {
+                min-width: 90px;
+                padding: 1rem;
+            }
+            
+            .red-zone h2 {
+                font-size: 3rem;
+            }
+            
+            .red-zone-timer {
+                font-size: 2.5rem;
+            }
+            
+            .red-zone-message {
+                font-size: 1.5rem;
+            }
+            
+            .breathing-exercise h2 {
+                font-size: 3rem;
+            }
+            
+            .breathing-circle {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>QUIT PORN. BECOME A KING.</h1>
+        <p class="subtitle">DOMINATE YOUR DESIRES OR THEY WILL DOMINATE YOU</p>
+    </header>
+    <main>
+        <div class="timer-container">
+            <div class="streak-info">
+                <div class="streak-box">
+                    <h3>CURRENT STREAK</h3>
+                    <div class="value" id="current-streak">0</div>
+                </div>
+                <div class="streak-box">
+                    <h3>CURRENT GOAL</h3>
+                    <div class="value" id="current-goal">48h</div>
+                </div>
+                <div class="streak-box">
+                    <h3>NEXT GOAL</h3>
+                    <div class="value" id="next-goal">96h</div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="countdown" id="countdown">
+                <div class="time-unit">
+                    <div class="value" id="days">00</div>
+                    <div class="label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div class="value" id="hours">00</div>
+                    <div class="label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div class="value" id="minutes">00</div>
+                    <div class="label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div class="value" id="seconds">00</div>
+                    <div class="label">Seconds</div>
+                </div>
+            </div>
+            
+            <div class="motivation" id="motivation" title="Click for new motivation">
+                <p id="motivation-text">He who conquers himself is the mightiest warrior. Your mind is the battlefield.</p>
+                <div class="author">- Confucius</div>
+            </div>
+            <div class="completed" id="completed">
+                <h3>MISSION ACCOMPLISHED!</h3>
+                <p>You've conquered this challenge. Now prepare for the next level.</p>
+            </div>
+            <div class="controls">
+                <button id="start-btn">START MISSION</button>
+                <button id="panic-btn" class="panic-btn">PANIC BUTTON</button>
+                <button id="breathe-btn" class="breathe-btn">BREATHE</button>
+                <button id="reset-btn" class="reset-btn">RESET STREAK</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2023 THE KING'S MINDSET | DISCIPLINE EQUALS FREEDOM</p>
+    </footer>
+    <!-- Red Zone Overlay -->
+    <div class="red-zone" id="red-zone">
+        <div class="red-zone-content">
+            <h2>RED ZONE ACTIVATED</h2>
+            <div class="red-zone-timer" id="red-zone-timer">05:00</div>
+            <div class="red-zone-message" id="red-zone-message">
+                IF YOU GIVE IN NOW, YOU'RE FAILING YOUR FUTURE SELF!
+            </div>
+            <div class="red-zone-controls">
+                <button id="exit-red-zone" class="exit-red-zone">I'M IN CONTROL</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Breathing Exercise Overlay -->
+    <div class="breathing-exercise" id="breathing-exercise">
+        <div class="breathing-content">
+            <h2>BREATHING EXERCISE</h2>
+            <div class="breathing-circle" id="breathing-circle">
+                INHALE
+            </div>
+            <div class="breathing-instructions" id="breathing-instructions">
+                Take a deep breath in through your nose for 4 seconds
+            </div>
+            <div class="breathing-controls">
+                <button id="exit-breathing" class="exit-breathing">EXIT</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+    
+    <script>
+        // DOM Elements
+        const startBtn = document.getElementById('start-btn');
+        const panicBtn = document.getElementById('panic-btn');
+        const breatheBtn = document.getElementById('breathe-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const currentStreakEl = document.getElementById('current-streak');
+        const currentGoalEl = document.getElementById('current-goal');
+        const nextGoalEl = document.getElementById('next-goal');
+        const motivationTextEl = document.getElementById('motivation-text');
+        const motivationEl = document.getElementById('motivation');
+        const progressBarEl = document.getElementById('progress-bar');
+        const completedEl = document.getElementById('completed');
+        const redZoneEl = document.getElementById('red-zone');
+        const redZoneTimerEl = document.getElementById('red-zone-timer');
+        const redZoneMessageEl = document.getElementById('red-zone-message');
+        const exitRedZoneBtn = document.getElementById('exit-red-zone');
+        const breathingExerciseEl = document.getElementById('breathing-exercise');
+        const breathingCircleEl = document.getElementById('breathing-circle');
+        const breathingInstructionsEl = document.getElementById('breathing-instructions');
+        const exitBreathingBtn = document.getElementById('exit-breathing');
+        const notificationEl = document.getElementById('notification');
+        
+        // Motivational quotes
+        const motivationalQuotes = [
+            { text: "He who conquers himself is the mightiest warrior. Your mind is the battlefield.", author: "Confucius" },
+            { text: "The unexamined life is not worth living. Question your desires, don't be enslaved by them.", author: "Socrates" },
+            { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
+            { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+            { text: "Freedom is not worth having if it does not include the freedom to make mistakes.", author: "Mahatma Gandhi" },
+            { text: "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.", author: "Albert Camus" },
+            { text: "He who has a why to live can bear almost any how. Find your purpose, not your pleasure.", author: "Friedrich Nietzsche" },
+            { text: "The mind is everything. What you think you become. Control your thoughts, control your destiny.", author: "Buddha" },
+            { text: "I count him braver who overcomes his desires than him who conquers his enemies.", author: "Aristotle" },
+            { text: "The first and greatest victory is to conquer self. To be conquered by self is the worst shame.", author: "Plato" },
+            { text: "Real men don't let temporary pleasures control their destiny. Start your journey to greatness now.", author: "The War Room" },
+            { text: "Weakness is a choice. Strength is a habit. Which one are you choosing today?", author: "Tate Philosophy" },
+            { text: "Every second you resist, you build your empire of self-discipline. Kings don't indulge in weakness.", author: "King's Mindset" },
+            { text: "Your desire for instant gratification is what keeps you average. Break free and become legendary.", author: "Top G" },
+            { text: "Pain is temporary, but regret lasts forever. Endure the pain of discipline or suffer the pain of regret.", author: "Hustler's University" },
+            { text: "The modern world wants you weak, distracted, and complacent. Reject mediocrity. Embrace greatness.", author: "The Real World" },
+            { text: "Your mind is the most powerful weapon you possess. Don't let it be hijacked by cheap dopamine hits.", author: "Tate Speech" },
+            { text: "Every time you say no to weakness, you say yes to your future self. Build that future now.", author: "King's Code" },
+            { text: "Excuses are for the weak. Solutions are for the strong. Which side are you on?", author: "War Room Tactics" },
+            { text: "The path to greatness is paved with discipline, sacrifice, and unwavering focus. Start walking it now.", author: "Top G Mindset" }
+        ];
+        
+        // Red Zone messages
+        const redZoneMessages = [
+            "IF YOU GIVE IN NOW, YOU'RE FAILING YOUR FUTURE SELF!",
+            "EVERY TIME YOU RELAPSE, YOU PUSH SUCCESS FURTHER AWAY!",
+            "THIS WEAKNESS WILL COST YOU YOUR DREAMS AND YOUR FAMILY!",
+            "YOU'LL NEVER BE RICH IF YOU CAN'T CONTROL YOUR URGES!",
+            "YOUR COMPETITORS ARE DISCIPLINED WHILE YOU'RE INDULGING!",
+            "GIVE IN NOW AND YOU'RE CHOOSING MEDIOCRITY OVER GREATNESS!",
+            "THIS MOMENT OF WEAKNESS COULD RUIN YOUR ENTIRE FUTURE!",
+            "REAL MEN DON'T SURRENDER TO TEMPORARY PLEASURES!",
+            "YOUR FUTURE FAMILY DESERVES A STRONG MAN, NOT A WEAK ONE!",
+            "EVERY SECOND YOU RESIST BUILDS YOUR EMPIRE OF DISCIPLINE!"
+        ];
+        
+        // Timer variables
+        let timerInterval = null;
+        let timeLeft = 48 * 60 * 60; // 48 hours in seconds
+        let initialTime = 48 * 60 * 60; // 48 hours in seconds
+        let streak = 0;
+        let isRunning = false;
+        let endTime = null;
+        
+        // Red Zone variables
+        let redZoneInterval = null;
+        let redZoneTimeLeft = 300; // 5 minutes in seconds
+        let redZoneMessageInterval = null;
+        
+        // Breathing exercise variables
+        let breathingInterval = null;
+        let breathingStep = 0; // 0: inhale, 1: hold, 2: exhale
+        let breathingTimeLeft = 4; // Start with inhale time
+        
+        // Initialize app
+        function init() {
+            // Load saved data from localStorage
+            loadData();
+            
+            // Update display with loaded data
+            updateDisplay();
+            updateStreakInfo();
+            
+            // If the timer was running when the page was last closed, continue it
+            if (endTime && endTime > Date.now()) {
+                startTimer();
+                isRunning = true;
+                startBtn.textContent = "MISSION IN PROGRESS";
+                startBtn.disabled = true;
+            }
+            
+            // Start quote rotation
+            startQuoteRotation();
+            
+            // Update the display immediately and then every second
+            updateDisplay();
+        }
+        
+        // Load data from localStorage
+        function loadData() {
+            try {
+                const savedData = localStorage.getItem('kingTimerData');
+                if (savedData) {
+                    const data = JSON.parse(savedData);
+                    streak = data.streak || 0;
+                    initialTime = data.initialTime || 48 * 60 * 60;
+                    timeLeft = data.timeLeft || 48 * 60 * 60;
+                    endTime = data.endTime || null;
+                    
+                    // If we have an end time, calculate the current timeLeft
+                    if (endTime) {
+                        const now = Date.now();
+                        if (now < endTime) {
+                            timeLeft = Math.floor((endTime - now) / 1000);
+                        } else {
+                            // If the timer has expired, trigger completion
+                            timeLeft = 0;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading data from localStorage:', e);
+            }
+        }
+        
+        // Save data to localStorage
+        function saveData() {
+            try {
+                const data = {
+                    streak,
+                    initialTime,
+                    timeLeft,
+                    endTime
+                };
+                localStorage.setItem('kingTimerData', JSON.stringify(data));
+            } catch (e) {
+                console.error('Error saving data to localStorage:', e);
+            }
+        }
+        
+        // Update display
+        function updateDisplay() {
+            const days = Math.floor(timeLeft / (24 * 60 * 60));
+            const hours = Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60));
+            const minutes = Math.floor((timeLeft % (60 * 60)) / 60);
+            const seconds = timeLeft % 60;
+            
+            daysEl.textContent = days.toString().padStart(2, '0');
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
+            
+            // Update progress bar
+            const progress = ((initialTime - timeLeft) / initialTime) * 100;
+            progressBarEl.style.width = `${progress}%`;
+            
+            // Update motivation based on time left
+            if (timeLeft < 60 * 60) {
+                updateMotivation("The final hour is where legends are made. Don't you dare give up now.", "Top G");
+            } else if (timeLeft < 24 * 60 * 60) {
+                updateMotivation("You're in the final stretch. Push through the pain and claim your victory.", "King's Mindset");
+            }
+            
+            // Save current state
+            saveData();
+        }
+        
+        // Update streak info
+        function updateStreakInfo() {
+            currentStreakEl.textContent = streak;
+            currentGoalEl.textContent = `${Math.floor(initialTime / (60 * 60))}h`;
+            nextGoalEl.textContent = `${Math.floor((initialTime * 2) / (60 * 60))}h`;
+        }
+        
+        // Update motivation
+        function updateMotivation(text, author) {
+            motivationTextEl.textContent = text;
+            document.querySelector('.motivation .author').textContent = `- ${author}`;
+        }
+        
+        // Get random motivation
+        function getRandomMotivation() {
+            const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+            updateMotivation(quote.text, quote.author);
+        }
+        
+        // Start timer
+        function startTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            // Set the end time for the current countdown
+            endTime = Date.now() + (timeLeft * 1000);
+            saveData();
+            
+            timerInterval = setInterval(() => {
+                const now = Date.now();
+                
+                // Calculate remaining time in seconds
+                if (now < endTime) {
+                    timeLeft = Math.floor((endTime - now) / 1000);
+                    updateDisplay();
+                } else {
+                    // Timer has completed
+                    timeLeft = 0;
+                    updateDisplay();
+                    completeGoal();
+                }
+            }, 1000);
+        }
+        
+        // Start mission
+        function startMission() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            
+            // Reset to initial values
+            streak = 0;
+            initialTime = 48 * 60 * 60;
+            timeLeft = initialTime;
+            
+            startBtn.textContent = "MISSION IN PROGRESS";
+            startBtn.disabled = true;
+            
+            showNotification("Mission started! Stay strong, King.");
+            
+            updateStreakInfo();
+            startTimer();
+            saveData();
+        }
+        
+        // Complete goal
+        function completeGoal() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            streak++;
+            initialTime *= 2;
+            timeLeft = initialTime;
+            
+            // Reset end time
+            endTime = null;
+            
+            updateDisplay();
+            updateStreakInfo();
+            
+            // Show completion message
+            completedEl.style.display = 'block';
+            setTimeout(() => {
+                completedEl.style.display = 'none';
+            }, 3000);
+            
+            showNotification("Mission accomplished! You're becoming stronger.");
+            
+            // Update motivation
+            const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+            updateMotivation(quote.text, quote.author);
+            
+            // Save data
+            saveData();
+            
+            // Start timer for next goal
+            startTimer();
+        }
+        
+        // Reset streak
+        function resetStreak() {
+            if (confirm("Are you sure you want to reset your streak? This is a sign of weakness.")) {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                
+                timeLeft = 48 * 60 * 60;
+                initialTime = 48 * 60 * 60;
+                streak = 0;
+                isRunning = false;
+                endTime = null;
+                
+                startBtn.textContent = "START MISSION";
+                startBtn.disabled = false;
+                
+                updateDisplay();
+                updateStreakInfo();
+                
+                updateMotivation("Failure is not final, but giving up is. Get back on your feet and fight for your greatness.", "Tate Philosophy");
+                showNotification("Streak reset. Time to start over and prove your strength.");
+                
+                // Save reset data
+                saveData();
+            }
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            notificationEl.textContent = message;
+            notificationEl.classList.add('show');
+            
+            setTimeout(() => {
+                notificationEl.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Red Zone functions
+        function activateRedZone() {
+            redZoneEl.classList.add('active');
+            redZoneTimeLeft = 300; // 5 minutes
+            updateRedZoneTimer();
+            
+            // Start countdown
+            redZoneInterval = setInterval(() => {
+                redZoneTimeLeft--;
+                updateRedZoneTimer();
+                
+                if (redZoneTimeLeft <= 0) {
+                    exitRedZone();
+                }
+            }, 1000);
+            
+            // Start message cycling
+            cycleRedZoneMessages();
+            redZoneMessageInterval = setInterval(cycleRedZoneMessages, 3000);
+            
+            showNotification("Red Zone activated! Fight the urge!");
+        }
+        
+        function updateRedZoneTimer() {
+            const minutes = Math.floor(redZoneTimeLeft / 60);
+            const seconds = redZoneTimeLeft % 60;
+            redZoneTimerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function cycleRedZoneMessages() {
+            const message = redZoneMessages[Math.floor(Math.random() * redZoneMessages.length)];
+            redZoneMessageEl.textContent = message;
+        }
+        
+        function exitRedZone() {
+            redZoneEl.classList.remove('active');
+            clearInterval(redZoneInterval);
+            clearInterval(redZoneMessageInterval);
+            showNotification("You conquered the urge! Stay strong.");
+        }
+        
+        // Breathing exercise functions
+        function startBreathingExercise() {
+            breathingExerciseEl.classList.add('active');
+            breathingStep = 0;
+            breathingTimeLeft = 4;
+            updateBreathingDisplay();
+            
+            breathingInterval = setInterval(() => {
+                breathingTimeLeft--;
+                
+                if (breathingTimeLeft <= 0) {
+                    breathingStep = (breathingStep + 1) % 3;
+                    
+                    if (breathingStep === 0) {
+                        breathingTimeLeft = 4;
+                    } else if (breathingStep === 1) {
+                        breathingTimeLeft = 7;
+                    } else {
+                        breathingTimeLeft = 8;
+                    }
+                }
+                
+                updateBreathingDisplay();
+            }, 1000);
+            
+            showNotification("Breathing exercise started. Focus on your breath.");
+        }
+        
+        function updateBreathingDisplay() {
+            breathingCircleEl.className = 'breathing-circle';
+            
+            if (breathingStep === 0) {
+                breathingCircleEl.classList.add('inhale');
+                breathingCircleEl.textContent = 'INHALE';
+                breathingInstructionsEl.textContent = 'Take a deep breath in through your nose for 4 seconds';
+            } else if (breathingStep === 1) {
+                breathingCircleEl.classList.add('hold');
+                breathingCircleEl.textContent = 'HOLD';
+                breathingInstructionsEl.textContent = 'Hold your breath for 7 seconds';
+            } else {
+                breathingCircleEl.classList.add('exhale');
+                breathingCircleEl.textContent = 'EXHALE';
+                breathingInstructionsEl.textContent = 'Exhale slowly through your mouth for 8 seconds';
+            }
+        }
+        
+        function exitBreathingExercise() {
+            breathingExerciseEl.classList.remove('active');
+            clearInterval(breathingInterval);
+            showNotification("Breathing exercise completed. You're in control.");
+        }
+        
+        // Event listeners
+        startBtn.addEventListener('click', startMission);
+        resetBtn.addEventListener('click', resetStreak);
+        panicBtn.addEventListener('click', activateRedZone);
+        exitRedZoneBtn.addEventListener('click', exitRedZone);
+        breatheBtn.addEventListener('click', startBreathingExercise);
+        exitBreathingBtn.addEventListener('click', exitBreathingExercise);
+        motivationEl.addEventListener('click', getRandomMotivation);
+        
+        // Start quote rotation
+        setInterval(() => {
+            if (!isRunning || timeLeft > 24 * 60 * 60) {
+                getRandomMotivation();
+            }
+        }, 30000);
+        
+        // Initialize app
+        init();
+    </script>
+</body>
+</html>
